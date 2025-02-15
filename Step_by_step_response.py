@@ -21,7 +21,7 @@ else:
 
 # Folder containing video clips
 VIDEO_FOLDER = r"D:\Telic projects\How to do maker\Clips of video"
-OUTPUT_JSON_FILE = "structured_video_summary.json"
+OUTPUT_JSON_FILE = "step_by_step_video.json"
 
 # Initialize AI Agent
 def initialize_agent():

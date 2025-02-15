@@ -57,7 +57,7 @@ def analyze_video(video_path, user_query):
             "response": response.content
         }
 
-        with open("video_analysis_results.json", "w", encoding="utf-8") as f:
+        with open("full_video.json", "w", encoding="utf-8") as f:
             json.dump(results, f, indent=4)
 
         print("Analysis complete. Results saved to video_analysis_results.json")
@@ -77,7 +77,7 @@ if __name__ == "__main__":
         print("Error: Video file not found.")
         exit()
 
-    user_question = "Summarize the video step by step"
+    user_question = "Summarize the video in detail"
 
     with tempfile.NamedTemporaryFile(delete=False, suffix='.mp4') as temp_video:
         with open(video_file_path, "rb") as f:

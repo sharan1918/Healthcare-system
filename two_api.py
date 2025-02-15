@@ -1,5 +1,6 @@
 import json
 import os
+import re
 from dotenv import load_dotenv
 import google.generativeai as genai
 from phi.agent import Agent
@@ -16,9 +17,9 @@ else:
     raise ValueError("GOOGLE_API_KEY environment variable not set.")
 
 # Paths for JSON files
-VIDEO_ANALYSIS_FILE = "video_analysis_results.json"
-STRUCTURED_VIDEO_SUMMARY_FILE = "structured_video_summary.json"
-OUTPUT_JSON_FILE = "combined_video_analysis.json"
+VIDEO_ANALYSIS_FILE = "full_video.json"
+STRUCTURED_VIDEO_SUMMARY_FILE = "step_by_step_video.json"
+OUTPUT_JSON_FILE = "Final_combined.json"
 
 # Load the existing JSON data
 def load_json(file_path):
@@ -31,10 +32,9 @@ def combine_json_data():
     structured_summary = load_json(STRUCTURED_VIDEO_SUMMARY_FILE)
     
     combined_data = {
-        "video_analysis": video_analysis["response"],
-        "structured_summary": structured_summary["steps"]
+        "video_analysis": video_analysis.get("response", ""),
+        "structured_summary": structured_summary.get("steps", [])
     }
-
     return combined_data
 
 # Initialize AI Agent
@@ -60,38 +60,45 @@ def get_combined_steps_from_gemini():
     Please merge these summaries, ensuring that:
     1. All steps are logically continuous, maintaining the context between each step.
     2. The summaries are precise and retain all key details.
-    3. Make sure no steps are omitted, and each step includes relevant information from both summaries.
+    3. For data accuracy, check with the video analysis results for each structured video step.
+
+    Provide the combined, clear, and continuous step-by-step summary in a structured JSON format.
+    Each step should be mapped to a corresponding clip (clip1, clip2, etc.).
+    Ensure the output is in the following format:
     
-    Provide the combined, clear, and continuous step-by-step summary. 
-    Avoid this videos says or shows, or similar phrases. Make it precise and clear. Just the steps to complete the task.
-    Each step should be mapped to a corresponding clip (clip1, clip2, etc.). 
-    Return the result as a dictionary, where each clip key (e.g., 'clip1', 'clip2') is associated with a step description.
-    Include all the steps as in structured_summary file.
+    {{
+        "clip1": "Step description 1",
+        "clip2": "Step description 2",
+        ...
+    }}
     """
 
     # Initialize the agent and send the prompt to Gemini
     multimodal_agent = initialize_agent()
     response = multimodal_agent.run(combined_prompt)
 
-    return response.content
+    return response.content if response else None
 
 # Function to clean and structure the response
 def clean_and_structure_response(response):
     structured_response = {}
-
-    # Remove unwanted markers (e.g., ```json, }{, etc.)
+    
+    # Remove unnecessary formatting markers (e.g., ```json, ``` etc.)
     response = response.strip().replace("```json", "").replace("```", "").strip()
 
-    # Split by lines or steps, assuming the response is separated by newlines
-    steps = response.split("\n")
-    
-    # Filter out empty steps or invalid ones
-    steps = [step.strip() for step in steps if step.strip() and step not in ['{', '}']]
+    # Extract step-based content using regex
+    step_pattern = re.compile(r"(clip\d+):\s*(.+)", re.IGNORECASE)
+    matches = step_pattern.findall(response)
 
-    # Map each step to the corresponding clip (clip1, clip2, etc.)
-    for index, step in enumerate(steps, start=1):
-        clip_key = f"clip{index}"
-        structured_response[clip_key] = step.strip()
+    for clip, description in matches:
+        structured_response[clip.lower()] = description.strip()
+
+    # If regex extraction fails, try JSON parsing
+    if not structured_response:
+        try:
+            structured_response = json.loads(response)
+        except json.JSONDecodeError:
+            print("⚠️ Failed to parse response as JSON. Storing raw response.")
 
     return structured_response
 
@@ -99,7 +106,7 @@ def clean_and_structure_response(response):
 def save_combined_response(structured_response):
     with open(OUTPUT_JSON_FILE, "w", encoding="utf-8") as json_file:
         json.dump(structured_response, json_file, indent=4, ensure_ascii=False)
-    print(f"Combined video summary saved to {OUTPUT_JSON_FILE}")
+    print(f"✅ Combined video summary saved to {OUTPUT_JSON_FILE}")
 
 # Main function to get combined steps and save the output
 def process_and_save_combined_steps():

@@ -1,0 +1,22 @@
+{
+    "clip1": "The video introduces the process of downloading invoices from the USAble Life carrier portal. The initial login information, including username and password, can be found in the Box Mailbox Carrier Login Portal.",
+    "clip2": "The video explains how to locate the necessary carrier login information, specifically usernames and passwords, within the carrier login portal spreadsheet.",
+    "clip3": "Open the carrier portal directly from the spreadsheet. Then, enter the username and password on the webpage to log into the account.",
+    "clip4": "After entering the User ID and Password, click the \"Log in to my account\" button.",
+    "clip5": "Navigate to the billing invoices download section. There are two options for downloading billing invoices, the video highlights the 'Billing and Payments' button on the screen.",
+    "clip6": "Access the \"Billing History\" section of the AccessAble website by navigating to the \"Billing & Payments\" option at the top of the page and then selecting \"Billing History\" from the dropdown menu.",
+    "clip7": "View all available invoices in the \"Billing History\" section. Click the download button to proceed.",
+    "clip8": "Choose the desired file format for the invoice download, either PDF or Excel. The user mentions that they usually download in PDF format for general use but may also download in Excel format for validation purposes.",
+    "clip9": "Click the \"Download PDF\" button in the \"Choose File Format\" section, then select \"Open File\" in the Downloads window.",
+    "clip10": "After downloading the file, rename it using the correct naming convention, which can be found within the mailbox for the previous month.",
+    "clip11": "Copy the file name from the previous month's invoice in the mailbox and adjust the month as needed for the current invoice.",
+    "clip12": "Rename the downloaded file on the computer, changing it from a sequence of numbers to the required format, such as \"USAble-Gunn Creel FL-Dec\", then adjust the month from \"Dec\" to \"Jan\" for the current month's invoice.",
+    "clip13": "After the file has been renamed, upload it to two folders: first, the AP Master folder.",
+    "clip14": "Drag the renamed invoice file, such as \"USABLE - Gunn Creel FL - Jan-25.pdf\", into the corresponding month's folder, such as the \"Jan-25\" folder.",
+    "clip15": "Upload the PDF document to the Box folder.",
+    "clip16": "Open the downloaded file to update the invoice number and report download/upload date in the Box's Client Billing Log Excel sheet.",
+    "clip17": "Locate the invoice number within the client billing log.",
+    "clip18": "Add the invoice number to the appropriate cell in the Client Billing Log Excel sheet.",
+    "clip19": "Fill in the amount due and the date in the appropriate columns of the Excel sheet.",
+    "clip20": "The video explains the final steps to upload the updated information to the Client Billing Log."
+}
