@@ -54,8 +54,8 @@ def analyze_video(video_path, user_query):
         # Store results in JSON format
         results = {
             "query": user_query,
-            "response": response.content
-        }
+            "response": response.content     
+        }   
 
         with open("full_video.json", "w", encoding="utf-8") as f:
             json.dump(results, f, indent=4)
