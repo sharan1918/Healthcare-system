@@ -20,14 +20,14 @@ else:
     raise ValueError("GOOGLE_API_KEY environment variable not set.")
 
 # Folder containing video clips
-VIDEO_FOLDER = r"D:\Telic projects\How to do maker\Clips of video"
+VIDEO_FOLDER = "Clips of video"
 OUTPUT_JSON_FILE = "step_by_step_video.json"
 
 # Initialize AI Agent
 def initialize_agent():
     return Agent(
         name="Video AI Summarizer",
-        model=Gemini(id="gemini-2.0-flash-exp"),  
+        model=Gemini(id="gemini-2.0-flash"),  
         tools=[DuckDuckGo()],
         markdown=True,
     )

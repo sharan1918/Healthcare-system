@@ -23,7 +23,7 @@ else:
 def initialize_agent():
     return Agent(
         name="Video AI Summarizer",
-        model=Gemini(id="gemini-2.0-flash-exp"),  # Or a suitable Gemini model
+        model=Gemini(id="gemini-2.0-flash"),  # Or a suitable Gemini model
         tools=[DuckDuckGo()],
         markdown=True,
     )
@@ -72,7 +72,7 @@ def analyze_video(video_path, user_query):
 
 
 if __name__ == "__main__":
-    video_file_path = r"D:\Telic projects\How to do maker\Access Able.mp4" # Get video path from user
+    video_file_path = 'Access Able.mp4' # Get video path from user
     if not os.path.exists(video_file_path):
         print("Error: Video file not found.")
         exit()
