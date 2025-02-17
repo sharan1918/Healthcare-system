@@ -61,8 +61,9 @@ def get_combined_steps_from_gemini():
     1. All steps are logically continuous, maintaining the context between each step.
     2. The summaries are precise and retain all key details.
     3. For data accuracy, check with the video analysis results for each structured video step.
-
+    
     Provide the combined, clear, and continuous step-by-step summary in a structured JSON format.
+    Avoid "this video explains how to..." or "the video shows how to..." in the summary.
     Each step should be mapped to a corresponding clip (clip1, clip2, etc.).
     Ensure the output is in the following format:
     
