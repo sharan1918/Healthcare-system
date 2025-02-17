@@ -3,7 +3,7 @@ import math
 import whisper
 from moviepy.editor import VideoFileClip
 
-def split_video(video_path, clip_length, output_directory='output_clips'):
+def split_video(video_path, clip_length, output_directory='Clips of video'):
     # Load the video file
     video = VideoFileClip(video_path)
     duration = video.duration  # Get the duration of the video in seconds
