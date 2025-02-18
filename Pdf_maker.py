@@ -54,10 +54,11 @@ def create_word_document(video_summary_file, screenshots_folder, output_file):
     # Save the document
     doc.save(output_file)
 
-# Define the paths to your JSON file and the output document
-video_summary_file = "Final_combined.json"
-screenshots_folder = "Screenshots"
-output_file = "Video_Summary.docx"
+if __name__ == "__main__":
+    # Define the paths to your JSON file and the output document
+    video_summary_file = "Final_combined.json"
+    screenshots_folder = "Screenshots"
+    output_file = "Video_Summary.docx"
 
-# Call the function to create the Word document
-create_word_document(video_summary_file, screenshots_folder, output_file)
+    # Call the function to create the Word document
+    create_word_document(video_summary_file, screenshots_folder, output_file)

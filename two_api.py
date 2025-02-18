@@ -47,7 +47,7 @@ def initialize_agent():
     )
 
 # Function to get a combined step-by-step summary from Gemini
-def get_combined_steps_from_gemini():
+def get_combined_steps_from_gemini(gemini_model):
     combined_data = combine_json_data()
     
     combined_prompt = f"""
@@ -64,7 +64,8 @@ def get_combined_steps_from_gemini():
     
     Provide the combined, clear, and continuous step-by-step summary in a structured JSON format.
     All the clips should be included as in structured video summary.
-    Avoid "this video explains how to..." or "the video shows how to..., the video demonstrates" in the summary.
+    Give straightforward and actionable steps for the user to follow.
+    Avoid "this video explains how to..." or "the video shows how to..., the video demonstrates, like this" in the summary.
     Each step should be mapped to a corresponding clip (clip1, clip2, etc.).
     Ensure the output is in the following format:
     
@@ -76,8 +77,7 @@ def get_combined_steps_from_gemini():
     """
 
     # Initialize the agent and send the prompt to Gemini
-    multimodal_agent = initialize_agent()
-    response = multimodal_agent.run(combined_prompt)
+    response = gemini_model.run(combined_prompt)
 
     return response.content if response else None
 
@@ -111,8 +111,8 @@ def save_combined_response(structured_response):
     print(f"✅ Combined video summary saved to {OUTPUT_JSON_FILE}")
 
 # Main function to get combined steps and save the output
-def process_and_save_combined_steps():
-    response = get_combined_steps_from_gemini()
+def process_and_save_combined_steps(gemini_model):
+    response = get_combined_steps_from_gemini(gemini_model)
 
     if response:
         structured_response = clean_and_structure_response(response)

@@ -31,9 +31,10 @@ def split_video(video_path, clip_length, output_directory='Clips of video'):
 
 
 # Usage
-video_path = 'Access Able.mp4'  # Path to your video file
-clip_length = 10  # Length of each clip in seconds
-output_directory = r"C:\Users\Sharan Kumar\OneDrive\Documents\GitHub\Video-to-pdf-Step-by-step-tutorial-\Clips of video"  # Output directory
+if __name__ == "__main__":
+    video_path = 'Access Able.mp4'  # Path to your video file
+    clip_length = 10  # Length of each clip in seconds
+    output_directory = r"C:\Users\Sharan Kumar\OneDrive\Documents\GitHub\Video-to-pdf-Step-by-step-tutorial-\Clips of video"  # Output directory
 
-# Step 1: Split the video
-clips = split_video(video_path, clip_length, output_directory)
+    # Step 1: Split the video
+    clips = split_video(video_path, clip_length, output_directory)

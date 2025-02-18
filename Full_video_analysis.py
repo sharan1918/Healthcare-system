@@ -28,7 +28,7 @@ def initialize_agent():
         markdown=True,
     )
 
-def analyze_video(video_path, user_query):
+def analyze_video(video_path, user_query,gemini_model):
     try:
         # Upload and process video file
         processed_video = upload_file(video_path)
@@ -48,8 +48,7 @@ def analyze_video(video_path, user_query):
         )
 
         # AI agent processing
-        multimodal_agent = initialize_agent() # Initialize agent here to avoid caching issues in non-streamlit env
-        response = multimodal_agent.run(analysis_prompt, videos=[processed_video])
+        response = gemini_model.run(analysis_prompt, videos=[processed_video])
 
         # Store results in JSON format
         results = {

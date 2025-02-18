@@ -33,7 +33,7 @@ def initialize_agent():
     )
 
 # Function to analyze a single video
-def analyze_video(video_path, step_number):
+def analyze_video(video_path, step_number,gemini_model):
     try:
         processed_video = upload_file(video_path)
         while processed_video.state.name == "PROCESSING":
@@ -49,8 +49,7 @@ def analyze_video(video_path, step_number):
         Make sure to maintain logical continuity from the previous steps.
         """
 
-        multimodal_agent = initialize_agent()
-        response = multimodal_agent.run(analysis_prompt, videos=[processed_video])
+        response = gemini_model.run(analysis_prompt, videos=[processed_video])
 
         return response.content
 
@@ -61,7 +60,7 @@ def analyze_video(video_path, step_number):
         Path(video_path).unlink(missing_ok=True)
 
 # Function to process all videos in a folder and ensure continuity
-def process_all_videos(folder_path):
+def process_all_videos(folder_path,gemini_model):
     results = []
     video_files = sorted(
         [f for f in os.listdir(folder_path) if f.endswith(".mp4")],
@@ -86,7 +85,7 @@ def process_all_videos(folder_path):
                 temp_video.write(f.read())
             temp_video_path = temp_video.name
 
-        response = analyze_video(temp_video_path, step_number)
+        response = analyze_video(temp_video_path, step_number,gemini_model)
 
         if response:
             results.append(response)
