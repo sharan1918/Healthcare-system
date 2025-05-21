@@ -15,7 +15,6 @@ from time import perf_counter
 
 # ✅ Load environment variables
 load_dotenv()
-
 # ✅ Set API Key Once
 API_KEY = os.getenv("GOOGLE_API_KEY")
 if not API_KEY:
@@ -28,7 +27,6 @@ gemini_model = Agent(
     tools=[DuckDuckGo()],
     markdown=True,
 )
-
 # ✅ User Query (Set Once)
 user_query = "Summarize the video in detail"
 
