@@ -1,7 +1,5 @@
 import os
 import tempfile
-import json
-from clips import split_video
 from Full_video_analysis import analyze_video
 from Step_by_step_response import process_all_videos
 from two_api import process_and_save_combined_steps
@@ -15,7 +13,6 @@ from time import perf_counter
 
 # ✅ Load environment variables
 load_dotenv()
-
 # ✅ Set API Key Once
 API_KEY = os.getenv("GOOGLE_API_KEY")
 if not API_KEY:
